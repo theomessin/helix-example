@@ -1,0 +1,59 @@
+[[language]]
+name = "typescript"
+scope = "source.ts"
+file-types = ["ts", "mts", "cts"]
+injection-regex = "(ts|typescript)"
+roots = ["package.json", "pnpm-lock.yaml", "pnpm-workspace.yaml"]
+language-servers = [{ except-features = ["format"], name = "typescript-language-server" }, "eslint"]
+formatter = { command = "pnpm", args = ["prettier", "--parser", "typescript"] }
+auto-format = true
+
+[[language]]
+name = "tsx"
+scope = "source.tsx"
+file-types = ["tsx"]
+injection-regex = "(tsx)"
+roots = ["package.json", "pnpm-lock.yaml", "pnpm-workspace.yaml"]
+language-servers = [{ except-features = ["format"], name = "typescript-language-server" }, "tailwindcss", "eslint"]
+formatter = { command = "pnpm", args = ["prettier", "--parser", "typescript"] }
+auto-format = true
+
+[language-server.typescript-language-server]
+command = "typescript-language-server"
+args = ["--stdio"]
+
+[language-server.typescript-language-server.config]
+documentFormatting = false
+
+# TailwindCSS
+[language-server.tailwindcss]
+command = "tailwindcss-language-server"
+args = ["--stdio"]
+
+# ESLint
+[language-server.eslint]
+command = "vscode-eslint-language-server"
+args = ["--stdio"]
+
+[language-server.eslint.config]
+run = "onType"
+validate = "on"
+rulesCustomizations = []
+experimental = { useFlatConfig = false }
+problems = { shortenToSingleLine = false }
+nodePath = ""
+
+[language-server.eslint.config.codeAction]
+[language-server.eslint.config.codeAction.disableRuleComment]
+enable = true
+location = "separateLine"
+
+[language-server.eslint.config.codeAction.showDocumentation]
+enable = true
+
+[language-server.eslint.config.codeActionOnSave]
+enable = true
+mode = "fixAll"
+
+[language-server.eslint.config.workingDirectory]
+mode = "location"
